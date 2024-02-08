@@ -65,9 +65,11 @@ volumes:
 - список пользователей с правами над таблицами test_db.
 
 ## Решение 2
-
-
-
+![spisokbd](https://github.com/v1us1885/hw-06-db-02-sql/blob/main/spisokBD.png)
+![d_orders](https://github.com/v1us1885/hw-06-db-02-sql/blob/main/d_orders.png)
+![d_clients](https://github.com/v1us1885/hw-06-db-02-sql/blob/main/d_clients.png)
+![sql-user_privileges](https://github.com/v1us1885/hw-06-db-02-sql/blob/main/sql-user_privileges.png)
+![dp_orders_clients](https://github.com/v1us1885/hw-06-db-02-sql/blob/main/dp_orders_clients.png)
 ## Задача 3
 
 Используя SQL-синтаксис, наполните таблицы следующими тестовыми данными:
@@ -110,7 +112,7 @@ VALUES (1, 'Шоколад', 10), (2, 'Принтер', 3000), (3, 'Книга',
 INSERT INTO clients (id, фамилия, страна_проживания, заказ)
 VALUES (1, 'Иванов Иван Иванович', 'USA', 1), (2, 'Петров Петр Петрович', 'Canada', 2), (3, 'Иоганн Себастьян Бах', 'Japan', 3), (4, 'Ронни Джеймс Дио', 'Russia', 4), (5, 'Ritchie Blackmore', 'Russia', 5);
 ```
-
+![count_orders_clients](https://github.com/v1us1885/hw-06-db-02-sql/blob/main/count_orders_clients.png)
 
 ## Задача 4
 
@@ -151,8 +153,7 @@ FROM clients c
 JOIN orders o ON c.заказ = o.id 
 WHERE c.заказ IS NOT NULL;
 ```
-
-
+![sql-buy](https://github.com/v1us1885/hw-06-db-02-sql/blob/main/sql-buy.png)
 
 ## Задача 5
 
@@ -162,6 +163,7 @@ WHERE c.заказ IS NOT NULL;
 Приведите получившийся результат и объясните, что значат полученные значения.
 
 ## Решение 5
+![explain](https://github.com/v1us1885/hw-06-db-02-sql/blob/main/explain.png)
 
 Результат выполнения EXPLAIN представляет собой план выполнения запроса, который оптимизатор запросов PostgreSQL использует для выполнения вашего SQL-запроса. Вот разбор:   
   - Hash Join: Это тип соединения между таблицами, в данном случае, использован Hash Join.
@@ -189,7 +191,21 @@ WHERE c.заказ IS NOT NULL;
 
 ## Решение 6
 
-
+```
+sudo docker exec -it 7887773041bf sh -c 'pg_dumpall -c -U admin > /backups/backup.sql'
+```
+```
+sudo docker cp 6c79bc0aea8d:/backups/backup.sql /home/devops/backup.sql
+```
+```
+sudo docker-compose down
+```
+```
+sudo docker-compose up -d
+```
+```
+cat /home/devops/backup.sql | sudo docker exec -i 6c79bc0aea8d psql -U admin -d test_db
+```
 
 ---
 
